@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- 指定Struts 2配置文件的根元素 -->
+<struts>
+	<!-- 指定国际化编码所使用的字符集 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.multipart.maxSize" value="1000000000" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.ui.theme" value="css_xhtml" />
+	<!-- 所有的Action定义都应该放在package下 -->
+	<package name="Main" extends="struts-default">
+		<action name="wechatAction" class="wechatAction">
+			<result name="success">welcome.jsp</result>
+			<result name="band">bandResult.jsp</result>
+		</action>
+		<action name="wechatWebAction" class="wechatWebAction">
+			<result name="score">score.jsp</result>
+			<result name="scoreError">scoreError.jsp</result>
+		</action>
+
+	</package>
+
+	<!-- <package name="Ajax" extends="json-default"> <action name="wechatWebAction" 
+		class="wechatWebAction"> <result name="score" type="json"> <param name="root">scoreDisplays</param> 
+		</result> </action> </package> -->
+</struts>

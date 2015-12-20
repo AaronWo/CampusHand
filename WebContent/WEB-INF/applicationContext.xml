@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- 数据库配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+
+		<property name="annotatedClasses">
+			<list>
+				<value>cn.edu.xmu.campushand.model.User</value>
+				<value>cn.edu.xmu.campushand.model.UserInfo</value>
+				<value>cn.edu.xmu.campushand.model.YJLGUser</value>
+				<value>cn.edu.xmu.campushand.model.XMUUser</value>
+				<value>cn.edu.xmu.campushand.model.Lecture</value>
+				<value>cn.edu.xmu.campushand.model.Teacher</value>
+				<value>cn.edu.xmu.campushand.model.TeacherLectureRemark</value>
+				<value>cn.edu.xmu.campushand.model.YJLGMajor</value>
+				<value>cn.edu.xmu.campushand.model.UserToken</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<!-- 配置DataSourceTransactionManager时需要依注入DataSource的引用 -->
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Actions -->
+	<bean id="wechatAction" class="cn.edu.xmu.campushand.actions.WechatAction"
+		autowire="byType"></bean>
+	<bean id="wechatWebAction" class="cn.edu.xmu.campushand.actions.WechatWebAction"
+		autowire="byType"></bean>
+
+	<!-- Services -->
+	<bean id="controlWebService" class="cn.edu.xmu.campushand.service.impl.ControlWebService"
+		autowire="byName"></bean>
+	<bean id="controlService" class="cn.edu.xmu.campushand.service.impl.ControlService"
+		autowire="byName"></bean>
+	<bean id="userInfoService" class="cn.edu.xmu.campushand.service.impl.UserInfoService"
+		autowire="byType"></bean>
+	<bean id="yjlgLoginService" class="cn.edu.xmu.campushand.service.impl.YJLGLoginService"
+		autowire="byType"></bean>
+	<bean id="yjlgInfoService" class="cn.edu.xmu.campushand.service.impl.YJLGInfoService"
+		autowire="byType"></bean>
+	<bean id="yjlgScoreService" class="cn.edu.xmu.campushand.service.impl.YJLGScoreService"
+		autowire="byType"></bean>
+	<bean id="yjlgWebService" class="cn.edu.xmu.campushand.service.impl.YJLGWebService"
+		autowire="byType"></bean>
+	<bean id="xmuLoginService" class="cn.edu.xmu.campushand.service.impl.XMULoginService"
+		autowire="byType"></bean>
+	<bean id="xmuInfoService" class="cn.edu.xmu.campushand.service.impl.XMUInfoService"
+		autowire="byName"></bean>
+	<bean id="xmuScoreService" class="cn.edu.xmu.campushand.service.impl.XMUScoreService"
+		autowire="byType"></bean>
+	<bean id="xmuCourseService" class="cn.edu.xmu.campushand.service.impl.XMUCourseService"
+		autowire="byType"></bean>
+	<bean id="chatRobotService" class="cn.edu.xmu.campushand.service.impl.ChatRobotService"
+		autowire="byType"></bean>
+
+	<!-- Dao -->
+	<bean id="yjlgMajorDao" class="cn.edu.xmu.campushand.dao.impl.YJLGMajorDaoImpl"
+		autowire="byType"></bean>
+	<bean id="yjlgUserDao" class="cn.edu.xmu.campushand.dao.impl.YJLGUserDaoImpl"
+		autowire="byType"></bean>
+	<bean id="userInfoDao" class="cn.edu.xmu.campushand.dao.impl.UserInfoDaoImpl"
+		autowire="byType"></bean>
+	<bean id="xmuUserDao" class="cn.edu.xmu.campushand.dao.impl.XMUUserDaoImpl"
+		autowire="byType"></bean>
+	<bean id="userDao" class="cn.edu.xmu.campushand.dao.impl.UserDaoImpl"
+		autowire="byType"></bean>
+
+</beans>
